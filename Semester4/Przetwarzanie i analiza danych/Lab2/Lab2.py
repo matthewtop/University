@@ -106,6 +106,33 @@ def uzupelnianieDanych():
     print(df)
     df.iloc[[0, 3], 1] = np.nan
     print(df)
-    print(pd.isnull(
-        df))  # Zwraca informację o tym gdzie znajdują się wartości NaN, False jeśli wartość jest różna od NaN,
+    print(pd.isnull(df))
+    # Zwraca informację o tym gdzie znajdują się wartości NaN, False jeśli wartość jest różna od NaN,
+
+
 #     True, jeśli wartość wynosi NaN
+
+def zadanie1():
+    df = pd.DataFrame({"x": [1, 2, 3, 4, 5], 'y': ['a', 'b', 'a', 'b', 'b']})
+    print(df)
+    df = df.groupby('y')['x'].mean()
+    print("Średnie wartosci x w grupach wyznaczonych przez y: \n", df)
+
+
+def zadanie2():
+    df = pd.DataFrame({"x": [1, 2, 3, 4, 5], 'y': ['a', 'b', 'a', 'b', 'b']})
+    print("Rozkład liczności atrybutów: \n", df.value_counts())
+
+def zadanie345():
+    # load = np.loadtxt('autos.csv',delimiter=',',skiprows=1,dtype=str)
+    # print(load)
+    read = pd.read_csv('autos.csv')
+    # print("\n", read.values)
+    zuzycie= read.groupby('make')[['city-mpg', 'highway-mpg']].mean()
+
+    print("Średnie zużycie paliwa dla każdego producenta:\n", zuzycie)
+
+    fuel = read.groupby('make')['fuel-type'].value_counts()
+    print("Liczność atrybutu fuel-type po zmiennej make: \n", fuel)
+
+zadanie345()
