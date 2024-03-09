@@ -1,7 +1,7 @@
 import numpy as np
 import pandas as pd
-
-
+from scipy import stats
+import matplotlib.pyplot as plt
 def manipulowanie1():
     daty = pd.date_range("20200301", periods=5)
 
@@ -123,7 +123,7 @@ def zadanie2():
     df = pd.DataFrame({"x": [1, 2, 3, 4, 5], 'y': ['a', 'b', 'a', 'b', 'b']})
     print("Rozkład liczności atrybutów: \n", df.value_counts())
 
-def zadanie345():
+def zadanie34567():
     # load = np.loadtxt('autos.csv',delimiter=',',skiprows=1,dtype=str)
     # print(load)
     read = pd.read_csv('autos.csv')
@@ -135,4 +135,36 @@ def zadanie345():
     fuel = read.groupby('make')['fuel-type'].value_counts()
     print("Liczność atrybutu fuel-type po zmiennej make: \n", fuel)
 
-zadanie345()
+    pierwszy = np.polyfit(read['length'], read['city-mpg'],1)
+    print("Współczynniki wielomianu 1 stopnia: \n", pierwszy)
+
+    drugi = np.polyfit(read['length'], read['city-mpg'],2)
+    print("Współczynniki wielomianu 2 stopnia: \n", drugi)
+
+    wartosci_x = np.linspace(read['length'].min(), read['length'].max(), 100)
+    ypierwszy = np.polyval(pierwszy, wartosci_x)
+    print("Prognozowane wartości dla wielomianu 1 stopnia: \n", ypierwszy)
+    ydrugi = np.polyval(drugi, wartosci_x)
+    print("Prognozowane wartości dla wielomianu 2 stopnia \n", ydrugi)
+
+    korelacja = stats.pearsonr(read['city-mpg'], read['length'])
+    print("Współczynnik korealcji liniowej: ", korelacja)
+
+def zadanie8():
+    read = pd.read_csv('autos.csv')
+    x = read['length']
+    y = read['city-mpg']
+    xval = np.linspace(x.min(), x.max(), 100)
+    wspolczynniki = np.polyfit(x,y,2)
+    yval = np.polyval(wspolczynniki,xval)
+
+    plt.figure(figsize=(10,10))
+    plt.scatter(x,y,color='r',label='probki')
+    plt.plot(xval,yval,color='g')
+    plt.xlabel('length')
+    plt.ylabel('city-mpg')
+    plt.legend()
+    plt.title("Mateusz Tołpa")
+    plt.show()
+
+zadanie8()
