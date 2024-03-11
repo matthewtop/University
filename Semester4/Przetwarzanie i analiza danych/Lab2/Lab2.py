@@ -124,10 +124,10 @@ def zadanie2():
     print("Rozkład liczności atrybutów: \n", df.value_counts())
 
 def zadanie34567():
-    # load = np.loadtxt('autos.csv',delimiter=',',skiprows=1,dtype=str)
-    # print(load)
+    load = np.loadtxt('autos.csv',delimiter=',',skiprows=1,dtype=str)
+    print(load)
     read = pd.read_csv('autos.csv')
-    # print("\n", read.values)
+    print("\n", read)
     zuzycie= read.groupby('make')[['city-mpg', 'highway-mpg']].mean()
 
     print("Średnie zużycie paliwa dla każdego producenta:\n", zuzycie)
@@ -147,7 +147,7 @@ def zadanie34567():
     ydrugi = np.polyval(drugi, wartosci_x)
     print("Prognozowane wartości dla wielomianu 2 stopnia \n", ydrugi)
 
-    korelacja = stats.pearsonr(read['city-mpg'], read['length'])
+    korelacja = stats.pearsonr(read['length'], read['city-mpg'])
     print("Współczynnik korealcji liniowej: ", korelacja)
 
 def zadanie8():
@@ -155,16 +155,50 @@ def zadanie8():
     x = read['length']
     y = read['city-mpg']
     xval = np.linspace(x.min(), x.max(), 100)
-    wspolczynniki = np.polyfit(x,y,2)
-    yval = np.polyval(wspolczynniki,xval)
+    wspolczynniki1 = np.polyfit(x,y,1)
+    wspolczynniki2 = np.polyfit(x,y,2)
+    yval1 = np.polyval(wspolczynniki1,xval)
+    yval2 = np.polyval(wspolczynniki2,xval)
 
     plt.figure(figsize=(10,10))
-    plt.scatter(x,y,color='r',label='probki')
-    plt.plot(xval,yval,color='g')
+    plt.scatter(x,y,color='b',label='probki')
+    plt.plot(xval,yval1,color='g')
+    plt.plot(xval,yval2,color='r')
+
     plt.xlabel('length')
     plt.ylabel('city-mpg')
     plt.legend()
     plt.title("Mateusz Tołpa")
     plt.show()
 
-zadanie8()
+def zadanie9():
+    read = pd.read_csv('autos.csv')
+    x = read['length']
+    estymator = stats.gaussian_kde(x)
+    xval = np.linspace(x.min(), x.max(),100)
+    plt.figure(figsize=(10,10))
+    plt.plot(xval,estymator(xval),color='r')
+    plt.scatter(xval,estymator(xval),color='b', label="próbki")
+    plt.xlabel('length')
+    plt.ylabel('gestosc')
+    plt.title("Wizualizacja jednowymiarowego estymatora funkcji")
+    plt.legend()
+    plt.show()
+
+def zadanie10():
+    read = pd.read_csv('autos.csv')
+    x1 = read['length']
+    x2 = read['width']
+    estymator1 = stats.gaussian_kde(x1)
+    estymator2 = stats.gaussian_kde(x2)
+    xval1 = np.linspace(x1.min(), x1.max(),100)
+    xval2 = np.linspace(x2.min(), x2.max(),100)
+    plt.plot(xval1,estymator1(xval1),color='r')
+    plt.scatter(xval1,estymator1(xval1),color='b', label="probki")
+    ax = plt.subplot(1,2,1)
+
+
+
+
+
+
