@@ -2,6 +2,8 @@ import numpy as np
 import pandas as pd
 from scipy import stats
 import matplotlib.pyplot as plt
+
+
 def manipulowanie1():
     daty = pd.date_range("20200301", periods=5)
 
@@ -123,22 +125,23 @@ def zadanie2():
     df = pd.DataFrame({"x": [1, 2, 3, 4, 5], 'y': ['a', 'b', 'a', 'b', 'b']})
     print("Rozkład liczności atrybutów: \n", df.value_counts())
 
+
 def zadanie34567():
-    load = np.loadtxt('autos.csv',delimiter=',',skiprows=1,dtype=str)
+    load = np.loadtxt('autos.csv', delimiter=',', skiprows=1, dtype=str)
     print(load)
     read = pd.read_csv('autos.csv')
     print("\n", read)
-    zuzycie= read.groupby('make')[['city-mpg', 'highway-mpg']].mean()
+    zuzycie = read.groupby('make')[['city-mpg', 'highway-mpg']].mean()
 
     print("Średnie zużycie paliwa dla każdego producenta:\n", zuzycie)
 
     fuel = read.groupby('make')['fuel-type'].value_counts()
     print("Liczność atrybutu fuel-type po zmiennej make: \n", fuel)
 
-    pierwszy = np.polyfit(read['length'], read['city-mpg'],1)
+    pierwszy = np.polyfit(read['length'], read['city-mpg'], 1)
     print("Współczynniki wielomianu 1 stopnia: \n", pierwszy)
 
-    drugi = np.polyfit(read['length'], read['city-mpg'],2)
+    drugi = np.polyfit(read['length'], read['city-mpg'], 2)
     print("Współczynniki wielomianu 2 stopnia: \n", drugi)
 
     wartosci_x = np.linspace(read['length'].min(), read['length'].max(), 100)
@@ -150,20 +153,21 @@ def zadanie34567():
     korelacja = stats.pearsonr(read['length'], read['city-mpg'])
     print("Współczynnik korealcji liniowej: ", korelacja)
 
+
 def zadanie8():
     read = pd.read_csv('autos.csv')
     x = read['length']
     y = read['city-mpg']
     xval = np.linspace(x.min(), x.max(), 100)
-    wspolczynniki1 = np.polyfit(x,y,1)
-    wspolczynniki2 = np.polyfit(x,y,2)
-    yval1 = np.polyval(wspolczynniki1,xval)
-    yval2 = np.polyval(wspolczynniki2,xval)
+    wspolczynniki1 = np.polyfit(x, y, 1)
+    wspolczynniki2 = np.polyfit(x, y, 2)
+    yval1 = np.polyval(wspolczynniki1, xval)
+    yval2 = np.polyval(wspolczynniki2, xval)
 
-    plt.figure(figsize=(10,10))
-    plt.scatter(x,y,color='b',label='probki')
-    plt.plot(xval,yval1,color='g')
-    plt.plot(xval,yval2,color='r')
+    plt.figure(figsize=(10, 10))
+    plt.scatter(x, y, color='b', label='probki')
+    plt.plot(xval, yval1, color='g')
+    plt.plot(xval, yval2, color='r')
 
     plt.xlabel('length')
     plt.ylabel('city-mpg')
@@ -171,19 +175,21 @@ def zadanie8():
     plt.title("Mateusz Tołpa")
     plt.show()
 
+
 def zadanie9():
     read = pd.read_csv('autos.csv')
     x = read['length']
     estymator = stats.gaussian_kde(x)
-    xval = np.linspace(x.min(), x.max(),100)
-    plt.figure(figsize=(10,10))
-    plt.plot(xval,estymator(xval),color='r')
-    plt.scatter(xval,estymator(xval),color='b', label="próbki")
+    xval = np.linspace(x.min(), x.max(), 100)
+    plt.figure(figsize=(10, 10))
+    plt.plot(xval, estymator(xval), color='r')
+    plt.scatter(xval, estymator(xval), color='b', label="próbki")
     plt.xlabel('length')
     plt.ylabel('gestosc')
     plt.title("Wizualizacja jednowymiarowego estymatora funkcji")
     plt.legend()
     plt.show()
+
 
 def zadanie10():
     read = pd.read_csv('autos.csv')
@@ -191,14 +197,43 @@ def zadanie10():
     x2 = read['width']
     estymator1 = stats.gaussian_kde(x1)
     estymator2 = stats.gaussian_kde(x2)
-    xval1 = np.linspace(x1.min(), x1.max(),100)
-    xval2 = np.linspace(x2.min(), x2.max(),100)
-    plt.plot(xval1,estymator1(xval1),color='r')
-    plt.scatter(xval1,estymator1(xval1),color='b', label="probki")
-    ax = plt.subplot(1,2,1)
+    xval1 = np.linspace(x1.min(), x1.max(), 100)
+    xval2 = np.linspace(x2.min(), x2.max(), 100)
+
+    fig, (ax, ax2) = plt.subplots(1, 2)
+    ax.plot(xval1, estymator1(xval1), color='r', label="gestosc")
+    ax.scatter(xval1, estymator1(xval1), color='b', label="próbki")
+    ax.set_ylabel('gestosc')
+    ax.legend()
+
+    ax2.plot(xval2, estymator2(xval2), color='r', label="gestosc")
+    ax2.scatter(xval2, estymator2(xval2), color='b', label="probki")
+    ax2.set_ylabel('gestosc')
+    ax2.legend()
+
+    plt.show()
 
 
+def zadanie11():
+    read = pd.read_csv('autos.csv')
+    x1 = read['length']
+    x2 = read['width']
+
+    estymator = stats.gaussian_kde(np.vstack([x1, x2]))
+    x1mesh, x2mesh = np.meshgrid(np.linspace(x1.min(), x1.max(), 100), np.linspace(x2.min(), x2.max(), 100))
+    punkty = np.vstack([x1mesh.ravel(), x2mesh.ravel()])
+    gestosc = np.reshape(estymator(punkty), x1mesh.shape)
+
+    plt.figure()
+    plt.scatter(x1, x2, label="probki")
+    plt.contourf(x1mesh, x2mesh, gestosc)
+
+    plt.ylabel("szerokosc")
+    plt.colorbar(label='gestosc')
+    plt.legend()
+    plt.show()
+    plt.savefig('zadanie11.png')
+    plt.savefig('zadanie11.pdf')
 
 
-
-
+zadanie11()
