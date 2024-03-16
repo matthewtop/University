@@ -231,9 +231,10 @@ def zadanie11():
     plt.ylabel("szerokosc")
     plt.colorbar(label='gestosc')
     plt.legend()
+    plt.savefig("zadanie11.png")
+    plt.savefig("zadanie11.pdf")
     plt.show()
-    plt.savefig('zadanie11.png')
-    plt.savefig('zadanie11.pdf')
+
 
 
 zadanie11()
