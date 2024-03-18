@@ -231,6 +231,7 @@ def zadanie11():
     plt.ylabel("szerokosc")
     plt.colorbar(label='gestosc')
     plt.legend()
+    plt.title("dwuwymiarowy estymator gęstości zmiennych width i length")
     plt.savefig("zadanie11.png")
     plt.savefig("zadanie11.pdf")
     plt.show()
