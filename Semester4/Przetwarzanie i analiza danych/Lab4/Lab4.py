@@ -2,6 +2,7 @@ import numpy as np
 import pandas as pd
 from scipy import stats
 import matplotlib.pyplot as plt
+import imageio
 
 
 # Fs->częstotliwość próbkowania
@@ -36,23 +37,37 @@ def dyskretyzacja45():
 
 
 def dyskretyzacja67():
+    pies = plt.imread('pies.png')
+
     methods = [None, 'none', 'nearest', 'bilinear', 'bicubic', 'spline16',
                'spline36', 'hanning', 'hamming', 'hermite', 'kaiser', 'quadric',
                'catrom', 'gaussian', 'bessel', 'mitchell', 'sinc', 'lanczos']
-
-    np.random.seed(19680801)
-
-    grid = np.random.rand(4, 4)
 
     fig, axs = plt.subplots(nrows=3, ncols=6, figsize=(9, 6),
                             subplot_kw={'xticks': [], 'yticks': []})
 
     for ax, interp_method in zip(axs.flat, methods):
-        ax.imshow(grid, interpolation=interp_method, cmap='viridis')
+        ax.imshow(pies, interpolation=interp_method, cmap='viridis')
         ax.set_title(str(interp_method))
 
     plt.tight_layout()
     plt.show()
 
 
-dyskretyzacja67()
+def kwantyzacja123():
+    pies = plt.imread('pies.png')
+    macierz = pies.shape
+    print("Wymiary obrazka: ", macierz)
+    valPixel = pies.shape[-1]
+    print("Ilosc wartosci opisujacych pojedynczy pixel: ", valPixel)
+
+
+def kwantyzacja45():
+    pies = plt.imread('pies.png')
+    jasnosc = (np.max(pies, axis=2) + np.min(pies, axis=2)) / 2
+    usrednienie = (np.mean(pies, axis=2))
+    lumin = 0.21 * pies[:, :, 0] + 0.72 * pies[:, :, 1] + 0.07 * pies[:, :, 2]
+
+   
+
+kwantyzacja45()
