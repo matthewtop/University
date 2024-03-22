@@ -1,8 +1,5 @@
 import numpy as np
-import pandas as pd
-from scipy import stats
 import matplotlib.pyplot as plt
-import imageio
 
 
 # Fs->częstotliwość próbkowania
@@ -63,11 +60,57 @@ def kwantyzacja123():
 
 
 def kwantyzacja45():
-    pies = plt.imread('pies.png')
-    jasnosc = (np.max(pies, axis=2) + np.min(pies, axis=2)) / 2
-    usrednienie = (np.mean(pies, axis=2))
-    lumin = 0.21 * pies[:, :, 0] + 0.72 * pies[:, :, 1] + 0.07 * pies[:, :, 2]
+    tecza = plt.imread('test.PNG')
+    # niezbędna była zmiana obrazu, ponieważ dla 'pies.png' histogramy pokazywaly wszędzie 0.
+    jasnosc = (np.max(tecza, axis=2) + np.min(tecza, axis=2)) / 2
+    usrednienie = (np.mean(tecza, axis=2))
+    lumin = 0.21 * tecza[:, :, 0] + 0.72 * tecza[:, :, 1] + 0.07 * tecza[:, :, 2]
 
-   
+    histJasnosc = np.histogram(jasnosc.ravel(), bins=256)
+    histUsrednienie = np.histogram(usrednienie.ravel(), bins=256)
+    histLumin = np.histogram(lumin.ravel(), bins=256)
 
-kwantyzacja45()
+    plt.figure(figsize=(15, 5))
+
+    plt.subplot(1, 3, 1)
+    plt.plot(histJasnosc[1][:-1], histJasnosc[0], color='black')
+    plt.title("Jasność")
+    plt.xlabel("Wartosc")
+    plt.ylabel("Liczba pikseli")
+    # plt.subplot(2, 3, 1)
+    # plt.imshow(jasnosc, cmap='gray')
+
+    plt.subplot(1, 3, 2)
+    plt.plot(histUsrednienie[1][:-1], histUsrednienie[0], color='black')
+    plt.title("Uśrednienie")
+    plt.xlabel("Wartosc")
+    plt.ylabel("Liczba pikseli")
+    # plt.subplot(2, 3, 2)
+    # plt.imshow(usrednienie, cmap='gray')
+
+    plt.subplot(1, 3, 3)
+    plt.plot(histLumin[1][:-1], histLumin[0], color='black')
+    plt.title("Luminacja")
+    plt.xlabel("Wartosc")
+    plt.ylabel("Liczba pikseli")
+    # plt.subplot(2, 3, 3)
+    # plt.imshow(lumin, cmap='gray')
+
+    plt.show()
+
+
+def kwantyzacja6():
+    tecza = plt.imread('test.PNG')
+    lumin = 0.21 * tecza[:, :, 0] + 0.72 * tecza[:, :, 1] + 0.07 * tecza[:, :, 2]
+    luminRedukcja = np.histogram(lumin.ravel(), bins=16)
+
+    plt.figure()
+    plt.plot(luminRedukcja[1][:-1], luminRedukcja[0], color='black')
+    plt.title("Zakres nowych kolorow luminacji")
+    plt.xlabel("Wartosc")
+    plt.ylabel("Liczba pikseli")
+    plt.show()
+
+
+
+
