@@ -52,10 +52,10 @@ def dyskretyzacja67():
 
 
 def kwantyzacja123():
-    pies = plt.imread('pies.png')
-    macierz = pies.shape
+    tecza = plt.imread('test.PNG')
+    macierz = tecza.shape
     print("Wymiary obrazka: ", macierz)
-    valPixel = pies.shape[-1]
+    valPixel = tecza.shape[-1]
     print("Ilosc wartosci opisujacych pojedynczy pixel: ", valPixel)
 
 
@@ -112,5 +112,38 @@ def kwantyzacja6():
     plt.show()
 
 
+def kwantyzacja7():
+    tecza = plt.imread('test.PNG')
+    lumin = 0.21 * tecza[:, :, 0] + 0.72 * tecza[:, :, 1] + 0.07 * tecza[:, :, 2]
+    luminRedukcja, bins = np.histogram(lumin.ravel(), bins=16)
+
+    srodek = (bins[:-1] + bins[1:]) / 2  # środek przedziału
+
+    luminKwantyzacja = np.digitize(lumin, bins) - 1
+
+    nowyLumin = srodek[luminKwantyzacja - 1]
+
+    plt.imshow(nowyLumin, cmap='gray')
+    plt.title("Nowa macierz 16 kolorow po srodku przedzialu histogramu")
+    plt.show()
 
 
+def kwantyzacja8():
+    kwantyzacja123()
+    kwantyzacja45()
+    kwantyzacja6()
+    kwantyzacja7()
+
+
+def binaryzacja12():
+    auto = plt.imread('ailambo.PNG')
+    autoHistogram,bins = np.histogram(auto.ravel(), bins=256)
+    plt.plot(bins[:-1], autoHistogram, color='black')
+    plt.title("Histogram ")
+    plt.xlabel("Wartosc piksela")
+    plt.ylabel("Liczba pikseli")
+    plt.show()
+
+
+
+binaryzacja12()
