@@ -34,7 +34,7 @@ def dyskretyzacja45():
 
 
 def dyskretyzacja67():
-    pies = plt.imread('pies.png')
+    tecza = plt.imread('test.PNG')
 
     methods = [None, 'none', 'nearest', 'bilinear', 'bicubic', 'spline16',
                'spline36', 'hanning', 'hamming', 'hermite', 'kaiser', 'quadric',
@@ -44,7 +44,7 @@ def dyskretyzacja67():
                             subplot_kw={'xticks': [], 'yticks': []})
 
     for ax, interp_method in zip(axs.flat, methods):
-        ax.imshow(pies, interpolation=interp_method, cmap='viridis')
+        ax.imshow(tecza, interpolation=interp_method, cmap='viridis')
         ax.set_title(str(interp_method))
 
     plt.tight_layout()
@@ -61,7 +61,6 @@ def kwantyzacja123():
 
 def kwantyzacja45():
     tecza = plt.imread('test.PNG')
-    # niezbędna była zmiana obrazu, ponieważ dla 'pies.png' histogramy pokazywaly wszędzie 0.
     jasnosc = (np.max(tecza, axis=2) + np.min(tecza, axis=2)) / 2
     usrednienie = (np.mean(tecza, axis=2))
     lumin = 0.21 * tecza[:, :, 0] + 0.72 * tecza[:, :, 1] + 0.07 * tecza[:, :, 2]
@@ -145,5 +144,3 @@ def binaryzacja12():
     plt.show()
 
 
-
-binaryzacja12()
