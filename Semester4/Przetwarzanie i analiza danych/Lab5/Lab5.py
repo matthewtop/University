@@ -1,6 +1,5 @@
 import numpy as np
 import pandas as pd
-from scipy.sparse import coo_matrix
 
 zoo = pd.read_csv('zoo.csv')
 
@@ -59,8 +58,9 @@ def entropy2Zmiennych(x, y):
         h -= p * np.log2(p)
     return h
 
+
 def infogain(x, y):
-    return entropy(x) - entropy2Zmiennych(x,y)
+    return entropy(x) - entropy2Zmiennych(x, y)
 
 
 def zadanie3():
@@ -70,19 +70,17 @@ def zadanie3():
 
 
 def zadanie4():
-
-    X = zoo.drop(columns=['type'])
+    type = zoo.drop(columns=['type'])
 
     przyrost = {}
-    for column in X.columns:
-        przyrost[column] = infogain(X[column], zoo['type'])
+    for column in type.columns:
+        przyrost[column] = infogain(type[column], zoo['type'])
 
     posortowaneInfo = sorted(przyrost.items(), key=lambda x: x[1], reverse=True)
 
     print("Przyrost informacji dla poszczególnych kolumn:")
     for column, przyrostVal in posortowaneInfo:
-        print(f"{column}: {przyrostVal}")
+        print("{}: {}".format(column, przyrostVal))
 
 
 zadanie4()
-
