@@ -76,7 +76,7 @@ def zadanie4():
     for column in type.columns:
         przyrost[column] = infogain(type[column], zoo['type'])
 
-    posortowaneInfo = sorted(przyrost.items(), key=lambda x: x[1], reverse=True)
+    posortowaneInfo = sorted(przyrost.items(), key=lambda x: x[1], reverse=True) #sortowanie po 2 wartosci malejaco
 
     print("Przyrost informacji dla poszczególnych kolumn:")
     for column, przyrostVal in posortowaneInfo:
