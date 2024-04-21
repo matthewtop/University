@@ -1,44 +1,85 @@
 from sklearn import datasets
+from sklearn.datasets import load_digits
 from sklearn.decomposition import PCA
 import numpy as np
 import matplotlib.pyplot as plt
-import pandas as pd
-
-iris = datasets.load_iris()
-# print("Nazwy cech (kolumn):", iris.feature_names)
-# print("Nazwy klas (target_names):", iris.target_names)
-# print(iris.data[:5]) # pierwsze 5 probek danych
-# print(iris.target[:5]) #klasy dla pierwszych 5 probek
-
-X = iris.data
-y = iris.target
-target_names = iris.target_names
-
-pca = PCA(n_components=2)
-X_r = pca.fit(X).transform(X)
-
-print(
-    "explained variance ratio (first two components): %s"
-    % str(pca.explained_variance_ratio_)
-)
-plt.figure()
-colors = ["red", "green", "blue"]
-lw = 2
-
-for color, i, target_name in zip(colors, [0, 1, 2], target_names):
-    plt.scatter(
-        X_r[y == i, 0], X_r[y == i, 1], color=color, alpha=0.8, lw=lw, label=target_name
-    )
-plt.legend(loc="best", shadow=False, scatterpoints=1)
-plt.title("PCA of IRIS dataset")
-plt.show()
 
 
+def zadanie1():
+    np.random.seed()
+    rng = np.random.RandomState()
+    punkty = np.dot(rng.rand(2, 2), rng.randn(2, 200)).T
+    data, wektory, wartosci = wiPCA(punkty, 1)
+    plt.figure()
+    plt.scatter(punkty[:, 0], punkty[:, 1], color='green', alpha=0.5)
+
+    nowePkt = data * wektory[:, :1].T + np.mean(punkty, axis=0)
+    plt.scatter(nowePkt[:, 0], nowePkt[:, 1], color='red', alpha=0.5)
+
+    for i, wektory in zip(wartosci, wektory.T):
+        x = wektory * 3 * np.sqrt(i)
+        rysujWektor(np.mean(punkty, axis=0), np.mean(punkty, axis=0) + x)
+        rysujWektor(np.mean(punkty, axis=0), np.mean(punkty, axis=0) + x)
+
+    plt.axis('equal')
+    plt.title('PCA')
+    plt.xlabel('X')
+    plt.ylabel('Y')
+    plt.show()
+
+
+def rysujWektor(vek0, vek1, axis=None):
+    axis = axis or plt.gca()
+    arrowprops = dict(arrowstyle='->',
+                      linewidth=2,
+                      shrinkA=0, shrinkB=0, color='black')
+    axis.annotate('', vek1, vek0, arrowprops=arrowprops)
+
+
+def zadanie2():
+    iris = datasets.load_iris()
+    Xiris = iris.data
+    yiris = iris.target
+
+    X_reduced, V, val = wiPCA(Xiris, 2)
+
+    plt.scatter(X_reduced[:, 0], X_reduced[:, 1], c=yiris)
+    plt.title('PCA dla zbioru iris')
+    plt.xlabel('Pierwsza składowa')
+    plt.ylabel('Druga składowa')
+
+    plt.grid(True)
+    plt.show()
+
+
+def zadanie3():
+    digits = load_digits()
+    X = digits.data
+    y = digits.target
+
+    X_reduced, V, val = wiPCA(X, 2)
+
+    plt.plot(np.cumsum(val) / np.sum(val))
+    plt.title('Krzywa wariancji')
+    plt.xlabel('Liczba składowych głównych')
+    plt.ylabel('Wariancja wyjaśniona')
+    plt.grid(True)
+    plt.show()
+
+    plt.scatter(X_reduced[:, 0], X_reduced[:, 1], c=y)
+    plt.title('PCA dla zbioru digits')
+    plt.xlabel('Składowa 1')
+    plt.ylabel('Skladowa 2')
+    plt.grid(True)
+    plt.show()
+
+
+# pca = PCA(n_components=2)
+# X_r = pca.fit(X).transform(X)
 
 
 def generujObiekty(iloscObiektow):
     obiekty = np.random.rand(iloscObiektow, 2)
-    # print(obiekty)
     return obiekty
 
 
@@ -48,8 +89,20 @@ def wizualizuj(iloscObiektow):
     plt.show()
 
 
+def wiPCA(x, elementy):
+    srednia = np.mean(x)
+    srodek = x - srednia
+    covMtr = np.cov(srodek.T)
+    walwlasne, vecwlasne = np.linalg.eig(covMtr)
 
-def wiPCA(X, n_components):
-    print(1)
+    temp = walwlasne.argsort()[::-1]
+    wartoscW = walwlasne[temp]
+    vecW = vecwlasne[:, temp]
 
-# wizualizuj(generujObiekty(200))
+    v_redukowane = vecW[:, :elementy]
+    x_redukowane = np.dot(srodek, v_redukowane)
+
+    return x_redukowane, vecW, wartoscW
+
+
+zadanie3()
