@@ -1,0 +1,21 @@
+|-----------------------------------------|
+|                    ASK                  |
+|            liczASK(10000,2,b,2,1,2):    |
+|Szerokość pasma dla progu -3.0dB: 1Hz    |
+|Szerokość pasma dla progu -6.0dB: 5Hz    |
+|Szerokość pasma dla progu -12.0dB: 26Hz  |
+|-----------------------------------------|
+|                    PSK                  |
+|            liczPSK(10000,2,b,2):        |
+|Szerokość pasma dla progu -3.0dB: 17Hz   |
+|Szerokość pasma dla progu -6.0dB: 38Hz   |
+|Szerokość pasma dla progu -12.0dB: 73Hz  |
+|-----------------------------------------|
+|                    FSK                  |
+|            liczFSK(10000,2,b,2);        |
+|Szerokość pasma dla progu -3.0dB: 25Hz   |
+|Szerokość pasma dla progu -6.0dB: 35Hz   |
+|Szerokość pasma dla progu -12.0dB: 99Hz  |
+|-----------------------------------------|
+
+

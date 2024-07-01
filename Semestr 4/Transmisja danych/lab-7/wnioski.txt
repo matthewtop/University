@@ -1,0 +1,87 @@
+*dodane w dniu 19.06, osobno szum oraz tlumienie*
+
+----------------------------------------------------------- |
+                         SZUM BIAŁY                         |
+                    ASK:        PSK:            FSK:        |
+alpha = 0.0       BER = 0%      BER = 0%        BER = 0%    |
+alpha = 0.1       BER = 7%      BER = 0%        BER = 0%    |
+alpha = 0.2       BER = 5%      BER = 0%        BER = 0%    |
+alpha = 0.3       BER = 39%     BER = 0%        BER = 5%    |
+alpha = 0.4       BER = 36%     BER = 5%        BER = 9%    |
+alpha = 0.5       BER = 39%     BER = 9%        BER = 28%   |
+alpha = 0.6       BER = 48%     BER = 14%       BER = 11%   |
+alpha = 0.7       BER = 48%     BER = 23%       BER = 39%   |
+alpha = 0.8       BER = 46%     BER = 2%        BER = 34%   |
+alpha = 0.9       BER = 40%     BER = 41%       BER = 36%   |
+alpha = 1         BER = 39%     BER = 25%       BER = 38%   |
+----------------------------------------------------------- |
+
+
+
+----------------------------------------------------------- |
+                         TŁUMIENIE                          |
+                    ASK:        PSK:            FSK:        |
+beta = 0.0       BER = 0%      BER = 0%        BER = 0%     |
+beta = 0.1       BER = 32%     BER = 0%        BER = 0%     |
+beta = 0.2       BER = 45%     BER = 0%        BER = 0%     |
+beta = 0.3       BER = 50%     BER = 0%        BER = 5%     |
+beta = 0.4       BER = 43%     BER = 0%        BER = 0%     |
+beta = 0.5       BER = 57%     BER = 0%        BER = 0%     |
+beta = 0.6       BER = 50%     BER = 0%        BER = 0%     |
+beta = 0.7       BER = 50%     BER = 0%        BER = 0%     |
+beta = 0.8       BER = 46%     BER = 0%        BER = 0%     |
+beta = 0.9       BER = 64%     BER = 0%        BER = 0%     |
+beta = 1         BER = 55%     BER = 0%        BER = 0%     |
+----------------------------------------------------------- |
+
+
+
+
+
+Dla przeprowadzonych przeze mnie eksperymentow dla alpha zwiekszajacego sie o 0.1 w zakresie <0,1> oraz dla beta zwiekszajacego sie o 1 w zakresie <1,10>
+zdobyłem następujące wyniki:
+
+                ASK:
+alpha = 0.0 beta = 0.0      BER = 0%
+alpha = 0.1 beta = 1.0      BER = 39%
+alpha = 0.2 beta = 2.0      BER = 55%
+alpha = 0.3 beta = 3.0      BER = 43%
+alpha = 0.4 beta = 4.0      BER = 45%
+alpha = 0.5 beta = 5.0      BER = 48%
+alpha = 0.6 beta = 6.0      BER = 39%
+alpha = 0.7 beta = 7.0      BER = 48%
+alpha = 0.8 beta = 8.0      BER = 48%
+alpha = 0.9 beta = 9.0      BER = 50%
+alpha = 1 beta = 10.0       BER = 46%
+
+                PSK:
+alpha = 0.0 beta = 0.0      BER = 0%
+alpha = 0.1 beta = 1.0      BER = 0%
+alpha = 0.2 beta = 2.0      BER = 2%
+alpha = 0.3 beta = 3.0      BER = 14%
+alpha = 0.4 beta = 4.0      BER = 0%
+alpha = 0.5 beta = 5.0      BER = 11%
+alpha = 0.6 beta = 6.0      BER = 18%
+alpha = 0.7 beta = 7.0      BER = 23%
+alpha = 0.8 beta = 8.0      BER = 36%
+alpha = 0.9 beta = 9.0      BER = 32%
+alpha = 1 beta = 10.0       BER = 41%
+
+                FSK:
+alpha = 0.0 beta = 0.0      BER = 0%
+alpha = 0.1 beta = 1.0      BER = 0%
+alpha = 0.2 beta = 2.0      BER = 0%
+alpha = 0.3 beta = 3.0      BER = 2%
+alpha = 0.4 beta = 4.0      BER = 5%
+alpha = 0.5 beta = 5.0      BER = 7%
+alpha = 0.6 beta = 6.0      BER = 23%
+alpha = 0.7 beta = 7.0      BER = 32%
+alpha = 0.8 beta = 8.0      BER = 29%
+alpha = 0.9 beta = 9.0      BER = 21%
+alpha = 1 beta = 10.0       BER = 30%
+
+Z przeprowadzonego ekspertymentu wynika, że najbardziej podatnym na szum i tłumienie jest modulacja ASK, a BER rosnie wraz z wzrostem alpha i beta.
+Modulacja PSK i FSK są bardziej odporne na szum i tłumienie. Dodatkowo samo tłumienie nie wpływa na BER modulacji PSK i FSK.
+
+
+
